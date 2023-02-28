@@ -1,4 +1,5 @@
 use axum::{http::StatusCode, routing::get, Extension, Json, Router};
+use cached::proc_macro::cached;
 
 use super::{errors::internal_error, ApiContext};
 
@@ -6,7 +7,7 @@ pub fn router() -> Router {
     Router::new().route("/persons", get(persons))
 }
 
-#[derive(serde::Serialize)]
+#[derive(serde::Serialize, Clone)]
 struct PersonSum {
     total_num_persons: usize,
     value: f64,
@@ -31,7 +32,13 @@ fn map_db_to_res(db_data: Vec<DbData>) -> PersonSum {
     }
 }
 
-// Create endpoint for returning how many persons there are and the total value
+#[cached(
+    time = 43200,
+    result = true,
+    sync_writes = true,
+    key = "String",
+    convert = r##"{ "".to_string() }"##
+)]
 async fn persons(
     ctx: Extension<ApiContext>,
 ) -> Result<(StatusCode, Json<PersonSum>), (StatusCode, String)> {
