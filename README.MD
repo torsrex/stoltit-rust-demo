@@ -31,3 +31,8 @@ Getting started with the Rust demo.
 - Format using `cargo fmt`
 - Lint and autofix errors using `cargo clippy --fix -- -W clippy::pedantic -W clippy::nursery -W clippy::unwrap_used`
 - Install Bacon using `cargo install bacon` and run bacon using `bacon`
+
+## Learn more
+
+- Learn Rust by example: https://doc.rust-lang.org/rust-by-example/
+- More Rust hype: https://www.youtube.com/playlist?list=PLZaoyhMXgBzoM9bfb5pyUOT3zjnaDdSEP
