@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:14.1
+    restart: always
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=postgres
+    volumes:
+      - type: tmpfs
+        target: /var/lib/postgresql/data
+      - ./db_seeds:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
